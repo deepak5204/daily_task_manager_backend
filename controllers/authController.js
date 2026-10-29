@@ -8,6 +8,8 @@ const register = async (req, res) => {
 
     const { name, email, password } = req.body;
 
+    console.log("Registering user with data:", { name, email, password });
+
     // Check if user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
