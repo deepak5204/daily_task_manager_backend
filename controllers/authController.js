@@ -1,11 +1,9 @@
-import User from '../models/User.js';
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
-
+import User from "../models/User.js";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 const register = async (req, res) => {
   try {
-
     const { name, email, password } = req.body;
 
     console.log("Registering user with data:", { name, email, password });
@@ -19,7 +17,7 @@ const register = async (req, res) => {
     // Create a new user
     const hashedPassword = await bcrypt.hash(password, 10);
 
-     const user = await User.create({
+    const user = await User.create({
       name,
       email,
       password: hashedPassword,
@@ -30,7 +28,7 @@ const register = async (req, res) => {
     res.status(201).json({
       success: true,
       message: "User registered successfully",
-      user
+      user,
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -61,23 +59,16 @@ const login = async (req, res) => {
       token,
       user: {
         id: user._id,
-        name: user.name
-      }
+        name: user.name,
+      },
     });
-
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-export default { register, login }; 
-
-
+export default { register, login };
 
 const generateToken = (userId) => {
-  return jwt.sign(
-    { userId},
-    process.env.JWT_SECRET,
-    { expiresIn: "1h" }
-  );
+  return jwt.sign({ userId }, process.env.JWT_SECRET, { expiresIn: "1h" });
 };

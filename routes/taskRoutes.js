@@ -1,6 +1,12 @@
 import express from "express";
-import {createTask, getAllTasks, deleteAllTasks, getTaskById, updateTask, deleteTask} from "../controllers/taskController.js";
-
+import {
+  createTask,
+  getAllTasks,
+  deleteAllTasks,
+  getTaskById,
+  updateTask,
+  deleteTask,
+} from "../controllers/taskController.js";
 
 const router = express.Router();
 
@@ -24,6 +30,5 @@ router.patch("/:id", updateTask);
 
 // Delete task by ID
 router.delete("/:id", deleteTask);
-
 
 export default router;

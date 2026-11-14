@@ -1,4 +1,3 @@
-
 import mongoose from "mongoose";
 
 const taskSchema = new mongoose.Schema(
@@ -6,40 +5,40 @@ const taskSchema = new mongoose.Schema(
     title: {
       type: String,
       required: [true, "Task title is required"],
-      trim: true
+      trim: true,
     },
 
     description: {
       type: String,
       default: null,
-      trim: true
+      trim: true,
     },
 
     priority: {
       type: String,
       enum: ["HIGH", "MEDIUM", "LOW"],
-      default: "LOW"
+      default: "LOW",
     },
 
     category: {
       type: String,
       default: null,
-      trim: true
+      trim: true,
     },
 
     dueDate: {
       type: Date,
-      default: null
+      default: null,
     },
 
     isCompleted: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   {
-    timestamps: true
-  }
+    timestamps: true,
+  },
 );
 
 const Task = mongoose.model("Task", taskSchema);
