@@ -1,4 +1,5 @@
 import express from "express";
+import authMiddleware from "../middleware/authMiddleware.js";
 import {
   createTask,
   getAllTasks,
@@ -13,7 +14,7 @@ const router = express.Router();
 console.log("Task routes initialized");
 
 // Create a new task
-router.post("/", createTask);
+router.post("/", authMiddleware, createTask);
 
 // Get all tasks
 router.get("/", getAllTasks);

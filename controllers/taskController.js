@@ -17,11 +17,12 @@ const createTask = async (req, res) => {
 
     // Create a new task
     const task = await Task.create({
-      title,
-      description,
-      priority,
-      category,
-      dueDate,
+        userId: req.user.userId,  // req.user is set by authMiddleware 
+        title: title.trim(),
+        description : description ? description.trim() : null,
+        priority: priority ? priority.toUpperCase() : "LOW",
+        category: category ? category.trim() : null,
+        dueDate: dueDate || null,
     });
 
     return res.status(201).json({
