@@ -17,19 +17,19 @@ console.log("Task routes initialized");
 router.post("/", authMiddleware, createTask);
 
 // Get all tasks
-router.get("/", getAllTasks);
+router.get("/", authMiddleware, getAllTasks);
 
 // Delete all tasks
-router.delete("/", deleteAllTasks);
+router.delete("/", authMiddleware, deleteAllTasks);
 
 // Get task by ID
-router.get("/:id", getTaskById);
+router.get("/:id", authMiddleware, getTaskById);
 
 // Update task
-router.put("/:id", updateTask);
-router.patch("/:id", updateTask);
+router.put("/:id", authMiddleware, updateTask);
+// router.patch("/:id", authMiddleware, updateTask);
 
 // Delete task by ID
-router.delete("/:id", deleteTask);
+router.delete("/:id", authMiddleware, deleteTask);
 
 export default router;

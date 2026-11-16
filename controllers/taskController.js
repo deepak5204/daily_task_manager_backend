@@ -51,7 +51,7 @@ const createTask = async (req, res) => {
 const getAllTasks = async (req, res) => {
   console.log("Received request to get all tasks");
   try {
-    const tasks = await Task.find().sort({ createdAt: -1 });
+    const tasks = await Task.find({ userId: req.user.userId }).sort({ createdAt: -1 });
 
     return res.status(200).json({
       success: true,
