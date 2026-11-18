@@ -17,12 +17,12 @@ const createTask = async (req, res) => {
 
     // Create a new task
     const task = await Task.create({
-        userId: req.user.userId,  // req.user is set by authMiddleware 
-        title: title.trim(),
-        description : description ? description.trim() : null,
-        priority: priority ? priority.toUpperCase() : "LOW",
-        category: category ? category.trim() : null,
-        dueDate: dueDate || null,
+      userId: req.user.userId, // req.user is set by authMiddleware
+      title: title.trim(),
+      description: description ? description.trim() : null,
+      priority: priority ? priority.toUpperCase() : "LOW",
+      category: category ? category.trim() : null,
+      dueDate: dueDate || null,
     });
 
     return res.status(201).json({
@@ -51,7 +51,9 @@ const createTask = async (req, res) => {
 const getAllTasks = async (req, res) => {
   console.log("Received request to get all tasks");
   try {
-    const tasks = await Task.find({ userId: req.user.userId }).sort({ createdAt: -1 });
+    const tasks = await Task.find({ userId: req.user.userId }).sort({
+      createdAt: -1,
+    });
 
     return res.status(200).json({
       success: true,
@@ -158,7 +160,7 @@ const updateTask = async (req, res) => {
     return res.status(200).json({
       success: true,
       message: "Task updated successfully",
-    //   task,
+      //   task,
     });
   } catch (error) {
     console.error("Update task error:", error);
