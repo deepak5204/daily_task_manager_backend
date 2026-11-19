@@ -12,13 +12,12 @@ const authMiddleware = async (req, res, next) => {
     const token = authHeader.split(" ")[1];
 
     if (!process.env.JWT_SECRET) {
-    return res.status(500).json({
-        message: "Server authentication configuration error"
-    });
-}
+      return res.status(500).json({
+        message: "Server authentication configuration error",
+      });
+    }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
 
     const user = await User.findById(decoded.userId).select("_id");
 
@@ -27,20 +26,16 @@ const authMiddleware = async (req, res, next) => {
     }
 
     req.user = {
-    userId: user._id
+      userId: user._id,
     };
 
     next();
-
   } catch (error) {
-
-    if(error.name === "TokenExpiredError") {
+    if (error.name === "TokenExpiredError") {
       return res.status(401).json({ message: "Token expired" });
-    }
-    else if(error.name === "JsonWebTokenError") {
+    } else if (error.name === "JsonWebTokenError") {
       return res.status(401).json({ message: "Invalid token" });
-    }
-    else {
+    } else {
       return res.status(500).json({ message: "Internal Server Error" });
     }
     // return
